@@ -1,11 +1,23 @@
 //Components
 import { Login } from './components/Login'
+import { Ordering } from './components/Ordering'
+import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import { useState } from "react";
 
 function App() {
+  const [token, setToken] = useState("");
+  
+  const handleLogin = (token: string) => {
+    setToken(token)
+  }
+  
   return (
-    <main className='grid place-content-center justify-center  h-[100vh]'>
-      <Login />
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Login onLogin={handleLogin} />} />
+        <Route path='/ordering' element={token ? <Ordering /> : <Navigate to="/" />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
