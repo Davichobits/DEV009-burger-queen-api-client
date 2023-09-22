@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from '../custom-hooks/useLocalStorage';
 
-export const Login = ({onLogin}) => {
+export const Login = () => {
+  const [setLocalStorage]  = useLocalStorage('token')
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ export const Login = ({onLogin}) => {
     fetch("http://localhost:8080/login", options)
       .then((res: Response) => res.json())
       .then((data) => {
-        onLogin(data.accessToken)
+        setLocalStorage(data.accessToken)
         navigate("/ordering");
       })
       .catch((err) => setErrorMessage(err));

@@ -1,20 +1,16 @@
 //Components
 import { Login } from './components/Login'
 import { Ordering } from './components/Ordering'
+import { useLocalStorage } from './custom-hooks/useLocalStorage';
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
-import { useState } from "react";
 
 function App() {
-  const [token, setToken] = useState("");
-  
-  const handleLogin = (token: string) => {
-    setToken(token)
-  }
+  const [token]  = useLocalStorage('token')
   
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login onLogin={handleLogin} />} />
+        <Route path='/' element={<Login />} />
         <Route path='/ordering' element={token ? <Ordering /> : <Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

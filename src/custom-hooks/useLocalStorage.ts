@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
-export const useLocalStorageToken = (key:string) => {
+export const useLocalStorage = (key:string) => {
 
   const [token, setToken] = useState<string | null>(localStorage.getItem(key))
 
-  const setLocalStorage = (newToken: string) => {
-    localStorage.setItem(key, newToken)
-    setToken(newToken)
+  const setLocalStorage = (value: string) => {
+    localStorage.setItem(key, value)
+    setToken(value)
   }
 
   const removeLocalStorageToken = () => {
