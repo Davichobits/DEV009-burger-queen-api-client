@@ -5,8 +5,7 @@ import { useLocalStorage } from './custom-hooks/useLocalStorage';
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 
 function App() {
-  const [token]  = useLocalStorage('token')
-  
+  const {token}  = useLocalStorage('token')
   return (
     <BrowserRouter>
       <Routes>

@@ -1,10 +1,10 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from '../custom-hooks/useLocalStorage';
+import useLocalStorage from '../custom-hooks/useLocalStorage';
 
 export const Login = () => {
-  const [setLocalStorage]  = useLocalStorage('token')
-  const [errorMessage, setErrorMessage] = useState("");
+  const {setToken}  = useLocalStorage('token')
+  // const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -24,10 +24,10 @@ export const Login = () => {
     fetch("http://localhost:8080/login", options)
       .then((res: Response) => res.json())
       .then((data) => {
-        setLocalStorage(data.accessToken)
+        setToken(data.accessToken)
         navigate("/ordering");
       })
-      .catch((err) => setErrorMessage(err));
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -53,7 +53,7 @@ export const Login = () => {
           placeholder="Contraseña"
           defaultValue="123456"
         />
-        <p>{errorMessage}</p>
+        {/* <p>{errorMessage}</p> */}
         <input className="border border-gray-400 rounded-lg p-3 cursor-pointer bg-slate-200 hover:bg-slate-300" type="submit" value="Ingresar" />
       </form>
     </main>

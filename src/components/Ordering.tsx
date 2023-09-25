@@ -4,12 +4,11 @@ import { useLocalStorage } from '../custom-hooks/useLocalStorage';
 export const Ordering = () => {
 
   const [products, setProducts] = useState([])
-  const [token, ]  = useLocalStorage('token')
+  const {token}  = useLocalStorage('token')
 
   const allProductsTypes = products.map((product: interfaceProduct) => product.type)
   const productsTypes = [...new Set(allProductsTypes)]
   
-
   useEffect(() => {
     const options = {
       method: "GET",
@@ -21,7 +20,9 @@ export const Ordering = () => {
 
     fetch("http://localhost:8080/products", options)
       .then((res: Response) => res.json())
-      .then((data) => setProducts(data))
+      .then((data) => {
+        setProducts(data)
+      })
       .catch((err) => console.log(err));
   }, []);
 
